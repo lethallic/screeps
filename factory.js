@@ -32,7 +32,7 @@
             }
             return false;
         },
-        createBuilders : function() {
+        createBuilder : function() {
             var name = "builder_" + controller.findCreeps("builder").length + 1;
             
             var result = _createCreep(name, [WORK, MOVE, CARRY], { "role" : "builder"});
