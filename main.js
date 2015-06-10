@@ -5,19 +5,10 @@ for ( var roomName in controllers ) {
 }
 */
 
-
+require("extend")();
 var _ = require("lodash");
 
-Creep.prototype.setStatus = function(s) {
-    this.memory.status = s ;
-};
 
-Creep.prototype.getStatus = function(def) {
-    if ( this.memory && this.memory.status ) {
-        return this.memory.status;    
-    }
-    return def || null;
-};
 
 (function controller(modules) {
     var c = {
