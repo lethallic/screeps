@@ -45,7 +45,7 @@ module.exports = {
 	]),
 	"builder" : new TaskList([
 		function(c) {
-			if ( c.energy == 0 || ( c.energy < c.energyCapacity || c.getStatus("transfering") == "transfering" ) ) {
+			if ( c.energy == 0 || ( c.energy < c.energyCapacity && c.getStatus("transfering") == "transfering" ) ) {
 				var spawns = c.room.find(FIND_MY_SPAWNS);
 				if ( spawns.length ) {
 					c.moveTo(spawns[0]);
