@@ -30,7 +30,7 @@ module.exports = function(controller, _) {
 			var rc = creep.room.controller;
 			if ( rc && rc.my ) {
 				creep.moveTo(rc);
-				creep.build(rc);
+				creep.upgradeController(rc);
 				creep.setStatus("building");
 			}
 		}
