@@ -9,28 +9,31 @@ module.exports = {
 		},
 		function(c) { /** Harvest Energy */
 			var room = c.room;
-			if ( c.energy == 0 ) {
+			if ( c.energy == 0 || ( c.energy < c.energyCapacity && c.getStatus("harvesting") == "harvesting") ) {
 				var energy = room.find(FIND_DROPPED_ENERGY);
 				if ( energy.length ) {
 					c.moveTo(energy[0]);
 					c.pickUp(target[0]);
+					c.setStatus("harvesting");
 					return true;
 				}
 				var sources = room.find(FIND_SOURCES);
 				if ( sources.length ) {
 					c.moveTo(sources[2]);
 					c.harvest(sources[2]);
+					c.setStatus("harvesting");
 					return true;
 				}
 			}
 			return false;
 		},
 		function(c) { /** Transfer Energy */
-			if ( c.energy == c.energyCapacity ) {
+			if ( c.energy == c.energyCapacity || ( c.energy > 0 && c.getStatus("harvesting") == "transfering")) {
 				var spawns = c.room.find(FIND_MY_SPAWNS);
 				if ( spawns.length ) {
 					c.moveTo(spawns[0]);
 					c.transferEnergy(spawns[0]);
+					c.setStatus("transfering");
 					return true;
 				}
 			}
