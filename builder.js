@@ -24,7 +24,15 @@ module.exports = function(controller, _) {
                 creep.moveTo(targets[0]);
                 creep.build(targets[0]);
                 creep.setStatus("building");
+				return;
             }
+			
+			var rc = creep.Room.controller;
+			if ( rc && rc.my ) {
+				creep.moveTo(rc);
+				creep.build(rc);
+				creep.setStatus("building");
+			}
 		}
 	}
 	
