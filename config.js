@@ -7,7 +7,7 @@ module.exports = {
 			body : [MOVE, MOVE, CARRY, CARRY, WORK]	
 		},
 		"builders" : {
-			max : 2,
+			max : 1,
 			body : [MOVE, MOVE, CARRY, CARRY, WORK]
 		}
 	}
