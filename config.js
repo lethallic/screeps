@@ -4,11 +4,11 @@ module.exports = {
 	creeps : {
 		"harvesters" : {
 			max : 5,
-			body : [MOVE, CARRY, WORK]	
+			body : [MOVE, MOVE, CARRY, CARRY, WORK]	
 		},
 		"builders" : {
-			max : 1,
-			body : [MOVE, CARRY, WORK]
+			max : 0,
+			body : [MOVE, MOVE, CARRY, CARRY, WORK]
 		}
 	}
 	
