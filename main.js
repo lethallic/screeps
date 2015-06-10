@@ -1,4 +1,6 @@
 /// <reference path="typings/screeps/screeps.d.ts" />
+// hello
+
 var _ = require("lodash");
 
 Creep.prototype.setStatus = function(s) {
