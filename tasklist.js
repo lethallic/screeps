@@ -40,7 +40,36 @@ module.exports = {
 			c.say("[STATUS: IDLE]");
 		}
 	]),
-	"BUILDER" : new TaskList([
+	"builder" : new TaskList([
+		function(c) {
+			if ( c.energy == 0 ) {
+				var spawns = c.room.find(FIND_MY_SPAWNS);
+				if ( spawns.length ) {
+					c.moveTo(s);
+					spawns[0].transferEnergy(c);
+					return true;
+				}
+			}
+			return false;
+		},
+		function(creep) {
+			
+			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+            if(targets.length) {
+                creep.moveTo(targets[0]);
+                creep.build(targets[0]);
+				return true;
+            }
+			
+			var rc = creep.room.controller;
+			if ( rc && rc.my ) {
+				creep.moveTo(rc);
+				creep.upgradeController(rc);
+				return true;
+			}
+			
+			return false;
+		},
 		function(c) {
 			c.say("[STATUS: IDLE]");
 		}
