@@ -1,6 +1,8 @@
 /// <reference path="typings/screeps/screeps.d.ts" />
 // hello
 
+/**
+
 var _ = require("lodash");
 
 Creep.prototype.setStatus = function(s) {
@@ -34,3 +36,11 @@ Creep.prototype.getStatus = function(def) {
     }
     
 })(["harvester", "builder"]);
+
+*/
+
+
+var controllers = require("controller")(Game.rooms);
+for ( var roomName in controllers ) {
+    controllers[roomName].run();
+}
