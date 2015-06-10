@@ -21,6 +21,11 @@ Creep.prototype.getStatus = function(def) {
     }
     c.factory = require("factory")(c, _);
     
+    for (var i in Memory.creeps) {
+        if (!Game.creeps[i]) {
+            delete Memory.creeps[i];
+        }
+    }    
     
     for ( var m in modules ) {
        require(modules[m])(c, _);
