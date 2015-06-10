@@ -21,13 +21,21 @@ module.exports = function(rooms){
 function RoomController(room) {
 	var self = this;
 	this.factory = new RoomFactory(room, self);
-			
+	
+	var _getCreeps = function(role) {
+		return room.find(FIND_MY_CREEPS, {
+			filter : function(creep) {
+				return (creep.memory.role == role)
+			}
+		});
+	}
+	
 	this.getHarvesters = function() {
-		return _.filter(room.creeps, {"memory" : {"role" :  _roles.HARVESTER}}); 		
+		return _getCreeps(_roles.HARVESTER);
 	};
 	
 	this.getBuilders = function() {
-		return _.filter(room.creeps, {"memory" : {"role" :  _roles.BUILDER}});
+		return _getCreeps(_roles.BUILDER);
 	};
 	
 	this.run = function() {
