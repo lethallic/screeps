@@ -57,22 +57,24 @@ module.exports = {
 			return false;
 		},
 		function(creep) {
-			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if(targets.length) {
-                creep.moveTo(targets[0]);
-                creep.build(targets[0]);
-                c.setStatus("building")
-				return true;
-            }
 			
-			var rc = creep.room.controller;
-			if ( rc && rc.my ) {
-				creep.moveTo(rc);
-				creep.upgradeController(rc);
-				c.setStatus("building")
-				return true;
+			if ( creep.energy == creep.energyCapacity || ( creep.energy > 0 && c.getStatus("transfering") == "building" ) ) {
+				var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+	            if(targets.length) {
+	                creep.moveTo(targets[0]);
+	                creep.build(targets[0]);
+	                c.setStatus("building")
+					return true;
+	            }
+				
+				var rc = creep.room.controller;
+				if ( rc && rc.my ) {
+					creep.moveTo(rc);
+					creep.upgradeController(rc);
+					c.setStatus("building")
+					return true;
+				}
 			}
-			
 			return false;
 		},
 		function(c) {
