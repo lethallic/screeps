@@ -81,14 +81,14 @@ function RoomFactory(room, ctrl) {
 	this.createHarvester = function() {
 		var cfg = config.creeps.harvesters;
 		if ( ctrl.getHarvesters().length < cfg.max ) {
-			// createCreep(cfg.body, _roles.HARVESTER);
+			createCreep(cfg.body, _roles.HARVESTER);
 		}		
 	}
 	
 	this.createBuilder = function() {
 		var cfg = config.creeps.builders;
 		if ( ctrl.getBuilders().length < cfg.max ) {
-			// createCreep(cfg.body, _roles.BUILDER);
+			createCreep(cfg.body, _roles.BUILDER);
 		}
 	};
 	
