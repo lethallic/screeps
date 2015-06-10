@@ -27,7 +27,7 @@ module.exports = function(controller, _) {
 				return;
             }
 			
-			var rc = creep.Room.controller;
+			var rc = creep.room.controller;
 			if ( rc && rc.my ) {
 				creep.moveTo(rc);
 				creep.build(rc);
