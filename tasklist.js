@@ -31,6 +31,7 @@ module.exports = {
 				if ( spawns.length ) {
 					c.moveTo(spawns[0]);
 					c.transferEnergy(spawns[0]);
+					return true;
 				}
 			}
 			return false;

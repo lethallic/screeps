@@ -35,13 +35,12 @@ function RoomController(room) {
 		self.factory.produce();
 		
 		/** Do Work */
-		var creeps = _room.find(FIND_MY_CREEPS);
+		var creeps = room.find(FIND_MY_CREEPS);
 		if ( creeps.length ) {
 			for ( var c in creeps ) {
-			    console.log(c);
-				var creep = room.creeps[c];
-				
+			    var creep = creeps[c];
 				var role = creep.memory.role;
+				
 				if ( tasklist[role] ) {
 					tasklist[role].do(creep);
 				}
