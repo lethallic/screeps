@@ -11,7 +11,7 @@ module.exports = function(controller, _) {
         var creep = harvesters[h];
         //if ( creep.energy < creep.energyCapacity ) {
         
-        var status = creep.getStatus();
+        var status = creep.getStatus("harvesting");
         if ( (status == "transfering" || status == "building") && creep.energy == 0 ) {
             status = "harvesting";
         }
@@ -24,17 +24,10 @@ module.exports = function(controller, _) {
                 creep.setStatus("harvesting");
             }
         } else {
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if(targets.length) {
-                creep.moveTo(targets[0]);
-                creep.build(targets[0]);
-                creep.setStatus("building");
-            } else {
-                creep.setStatus("transfering");
-                var spawn = Game.spawns.Spawn1;
-                creep.moveTo(spawn);
-                creep.transferEnergy(spawn);
-            }
+            creep.setStatus("transfering");
+            var spawn = Game.spawns.Spawn1;
+            creep.moveTo(spawn);
+            creep.transferEnergy(spawn);
         }
     }
     

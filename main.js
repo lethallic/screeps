@@ -5,11 +5,11 @@ Creep.prototype.setStatus = function(s) {
     this.memory.status = s ;
 };
 
-Creep.prototype.getStatus = function() {
+Creep.prototype.getStatus = function(def) {
     if ( this.memory && this.memory.status ) {
         return this.memory.status;    
     }
-    return "harvesting";
+    return def || null;
 };
 
 (function controller(modules) {
@@ -26,15 +26,4 @@ Creep.prototype.getStatus = function() {
        require(modules[m])(c, _);
     }
     
-})(["harvester"]);
-
-
-var test = require(["controller", "factory"], function(controller, factory) {
-   console.log(factory);
-   controller.factory = factory;
-   
-   
-   return controller; 
-});
-
-console.log(test);
+})(["harvester", "builder"]);
