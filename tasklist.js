@@ -13,7 +13,7 @@ module.exports = {
 				var energy = room.find(FIND_DROPPED_ENERGY);
 				if ( energy.length ) {
 					c.moveTo(energy[0]);
-					c.pickUp(target[0]);
+					c.pickUp(energy[0]);
 					c.setStatus("harvesting");
 					return true;
 				}
@@ -29,6 +29,20 @@ module.exports = {
 		},
 		function(c) { /** Transfer Energy */
 			if ( c.energy == c.energyCapacity || ( c.energy > 0 && c.getStatus("harvesting") == "transfering")) {
+				
+				var structures = c.room.find(FIND_MY_STRUCTURES);
+				for ( var e in structures ) {
+					var structure = structures[e];
+					if ( structure.type == STRUCTURE_EXTENSION ) {
+						if ( structure.energy < structure.energyCapacity ) {
+							c.moveTo(structure);
+							c.transferEnergy(structure);
+							c.setStatus("transfering");
+							return true;
+						}
+					}
+				}
+
 				var spawns = c.room.find(FIND_MY_SPAWNS);
 				if ( spawns.length ) {
 					c.moveTo(spawns[0]);
@@ -57,13 +71,13 @@ module.exports = {
 			return false;
 		},
 		function(creep) {
-			
-			if ( creep.energy == creep.energyCapacity || ( creep.energy > 0 && c.getStatus("transfering") == "building" ) ) {
+			// if ( creep.energy > 0 || ( creep.energy > 0 && c.getStatus("transfering") == "building" ) ) {
+			if ( creep.energy > 0 ) {
 				var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 	            if(targets.length) {
 	                creep.moveTo(targets[0]);
 	                creep.build(targets[0]);
-	                c.setStatus("building")
+	                creep.setStatus("building")
 					return true;
 	            }
 				
@@ -71,7 +85,7 @@ module.exports = {
 				if ( rc && rc.my ) {
 					creep.moveTo(rc);
 					creep.upgradeController(rc);
-					c.setStatus("building")
+					creep.setStatus("building")
 					return true;
 				}
 			}
