@@ -24,7 +24,7 @@
      
      return {
         createWorker : function() {
-            var name = "worker_" + controller.findCreeps("worker").length + 1;
+            var name = "worker_" + Math.round(Math.random() * 100);
             
             var result = _createCreep(name, [WORK, MOVE, CARRY], { "role" : "worker"});
             if ( _.isString(result) ) {
@@ -33,7 +33,7 @@
             return false;
         },
         createBuilder : function() {
-            var name = "builder_" + controller.findCreeps("builder").length + 1;
+            var name = "builder_" + Math.round(Math.random() * 100);
             
             var result = _createCreep(name, [WORK, MOVE, CARRY], { "role" : "builder"});
             if ( _.isString(result) ) {
