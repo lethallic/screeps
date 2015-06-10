@@ -13,7 +13,7 @@ module.exports = {
 				var energy = room.find(FIND_DROPPED_ENERGY);
 				if ( energy.length ) {
 					c.moveTo(energy[0]);
-					c.pickUp(energy[0]);
+					c.pickup(energy[0]);
 					c.setStatus("harvesting");
 					return true;
 				}
