@@ -27,3 +27,14 @@ Creep.prototype.getStatus = function() {
     }
     
 })(["harvester"]);
+
+
+var test = require(["controller", "factory"], function(controller, factory) {
+   console.log(factory);
+   controller.factory = factory;
+   
+   
+   return controller; 
+});
+
+console.log(test);
