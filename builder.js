@@ -1,5 +1,5 @@
 module.exports = function(controller, _) {
-	var MAX_BUILDERS = 1;
+	var MAX_BUILDERS = 2;
 	
 	var builders = controller.findCreeps("builder");
     if ( builders.length < MAX_BUILDERS ) {

@@ -1,5 +1,5 @@
 module.exports = function(controller, _) {
-	var MAX_HARVESTERS = 2;
+	var MAX_HARVESTERS = 4;
     
     
     var harvesters = controller.findCreeps("worker");
