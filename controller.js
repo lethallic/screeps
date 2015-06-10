@@ -20,7 +20,7 @@ module.exports = function(rooms){
 
 function RoomController(room) {
 	var self = this;
-	this.factory = new RoomFactory(room, this);
+	this.factory = new RoomFactory(room, self);
 			
 	this.getHarvesters = function() {
 		return _.filter(room.creeps, {"memory" : {"role" :  _roles.HARVESTER}}); 		
@@ -35,18 +35,22 @@ function RoomController(room) {
 		self.factory.produce();
 		
 		/** Do Work */
-		for ( var c in room.creeps ) {
-			var creep = room.creeps[c];
-			
-			var role = creep.memory.role;
-			if ( tasklist[role] ) {
-				tasklist[role].do(creep);
-			}
-		} 
+		var creeps = _room.find(FIND_MY_CREEPS);
+		if ( creeps.length ) {
+			for ( var c in creeps ) {
+			    console.log(c);
+				var creep = room.creeps[c];
+				
+				var role = creep.memory.role;
+				if ( tasklist[role] ) {
+					tasklist[role].do(creep);
+				}
+			} 
+		}
 	};
 }
 
-function RoomFactory(room, controller) {
+function RoomFactory(room, ctrl) {
 	var self = this;
 	
 	var getIdleSpawn = function() {
@@ -56,7 +60,7 @@ function RoomFactory(room, controller) {
 	var createCreep = function(body, role) {
 		var name = role + "_" + (Math.round(Math.random() * 1000));
 		
-		var result = createCreep(body, name, {
+		var result = getIdleSpawn().createCreep(body, name, {
 			"role" : role
 		});
 		
@@ -69,19 +73,19 @@ function RoomFactory(room, controller) {
 		
 	this.createHarvester = function() {
 		var cfg = config.creeps.harvesters;
-		if ( controller.getHarvester().length < cfg.max ) {
+		if ( ctrl.getHarvesters().length < cfg.max ) {
 			createCreep(cfg.body, _roles.HARVESTER);
 		}		
 	}
 	
 	this.createBuilder = function() {
 		var cfg = config.creeps.builders;
-		if ( controller.getHarvester().length < cfg.max ) {
+		if ( ctrl.getBuilders().length < cfg.max ) {
 			createCreep(cfg.body, _roles.BUILDER);
 		}
 	};
 	
-	this.procude = function() {
+	this.produce = function() {
 		self.createHarvester();
 		self.createBuilder();
 	}	
