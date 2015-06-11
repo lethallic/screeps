@@ -45,13 +45,28 @@ module.exports = {
 
 				var spawns = c.room.find(FIND_MY_SPAWNS);
 				if ( spawns.length ) {
-					c.moveTo(spawns[0]);
-					c.transferEnergy(spawns[0]);
-					c.setStatus("transfering");
-					return true;
+					var spawn = spawns[0];
+					if ( spawn.energy < spawn.energyCapacity ) {
+						c.moveTo(spawn);
+						c.transferEnergy(spawn);
+						c.setStatus("transfering");
+						return true;	
+					}
 				}
 			}
 			return false;
+		},
+		function (c) {
+			if ( c.energy > 0 ) {
+				var rc = c.room.controller;
+				if ( rc && rc.my ) {
+					c.moveTo(rc);
+					c.upgradeController(rc);
+					c.setStatus("transfering")
+					return true;
+				}
+			}
+			return false;	
 		},
 		function(c) {
 			c.say("[STATUS: IDLE]");
