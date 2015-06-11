@@ -33,7 +33,7 @@ module.exports = {
 				var structures = c.room.find(FIND_MY_STRUCTURES);
 				for ( var e in structures ) {
 					var structure = structures[e];
-					if ( structure.type == STRUCTURE_EXTENSION ) {
+					if ( structure.structureType == STRUCTURE_EXTENSION ) {
 						if ( structure.energy < structure.energyCapacity ) {
 							c.moveTo(structure);
 							c.transferEnergy(structure);
