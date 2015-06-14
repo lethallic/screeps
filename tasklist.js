@@ -73,7 +73,7 @@ module.exports = {
 		}
 	]),
 	"builder" : new TaskList([
-		function(c) {
+		function(c) { // get energy
 			if ( c.energy == 0 || ( c.energy < c.energyCapacity && c.getStatus("transfering") == "transfering" ) ) {
 				var spawns = c.room.find(FIND_MY_SPAWNS);
 				if ( spawns.length ) {
@@ -85,7 +85,24 @@ module.exports = {
 			}
 			return false;
 		},
-		function(creep) {
+		function(c) { // repair
+			if ( c.energy > 0 )	 {
+				var targets = c.room.find(FIND_CONSTRUCTION_SITES, {
+					filter : function(o) {
+						return (o.hits < o.hitsMax);
+					}
+				});
+				
+				if ( targets.length ) {
+					c.moveTo(targets[0]);
+	                c.build(targets[0]);
+	                c.setStatus("repair");
+					return true;
+				}
+			}
+			return false;
+		},
+		function(creep) { // build
 			// if ( creep.energy > 0 || ( creep.energy > 0 && c.getStatus("transfering") == "building" ) ) {
 			if ( creep.energy > 0 ) {
 				var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
