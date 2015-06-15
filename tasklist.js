@@ -92,12 +92,12 @@ module.exports = {
 		function(c) { // repair
 			if ( c.energy > 0 )	 {
 				var targets = c.room.find(FIND_MY_STRUCTURES, {
-					filter : function(o) {
-						return false;
-					}
+					filter: function(i) {
+    					 return i.needsRepair();
+    				}
 				});
 				
-				console.log("targes", targets.length);
+				console.log("targets", targets.length);
 				
 				if ( targets.length ) {
 					c.moveTo(targets[0]);

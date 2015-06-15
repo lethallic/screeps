@@ -31,8 +31,8 @@ module.exports = function() {
     });
     
     extend(Structure.prototype, {
-        isDamaged : function() {
-            return this.hits < this.maxHits;
+        needsRepair = function(name) {
+            return this.hits < this.hitsMax / 2;
         }
     });
     
