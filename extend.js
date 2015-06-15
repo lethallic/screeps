@@ -33,15 +33,12 @@ module.exports = function() {
     
     extend(Structure.prototype, {
         needsRepair : function(name) {
-            console.log(this, this.hits, this.hitsMax);
             return this.hits < this.hitsMax / 2;
         }
     });
     
     extend(Spawn.prototype, {
         needsRepair : function(name) {
-            console.log(this, this.hits, this.hitsMax);
-            
             return this.hits < this.hitsMax / 2;
         }
     });
