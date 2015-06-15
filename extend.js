@@ -30,8 +30,7 @@ module.exports = function() {
         
     });
     
-    
-    Structure.prototype.needsRepair = function(name) {
+    Structure.prototype.needsRepair = function() {
         return this.hits < this.hitsMax / 2;
     };
     
