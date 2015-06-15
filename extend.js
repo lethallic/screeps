@@ -31,7 +31,7 @@ module.exports = function() {
     });
     
     extend(Structure.prototype, {
-        needsRepair = function(name) {
+        needsRepair : function(name) {
             return this.hits < this.hitsMax / 2;
         }
     });
