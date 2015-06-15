@@ -97,6 +97,8 @@ module.exports = {
 					}
 				});
 				
+				console.log("targes", targets.length);
+				
 				if ( targets.length ) {
 					c.moveTo(targets[0]);
 	                c.build(targets[0]);
