@@ -94,8 +94,7 @@ module.exports = {
 				var targets = c.room.find(FIND_MY_STRUCTURES, {
 					filter: function(i) {
 						console.log(i);
-    					 //return i.needsRepair();
-    					 return false;
+    					return i.needsRepair();
     				}
 				});
 				
