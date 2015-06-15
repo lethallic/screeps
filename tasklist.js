@@ -93,6 +93,7 @@ module.exports = {
 			if ( c.energy > 0 )	 {
 				var targets = c.room.find(FIND_MY_STRUCTURES, {
 					filter: function(i) {
+						console.log(i);
     					 return i.needsRepair();
     				}
 				});
