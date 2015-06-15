@@ -39,6 +39,8 @@ module.exports = function() {
     
     extend(Spawn.prototype, {
         needsRepair : function(name) {
+            console.log(this, this.hits, this.hitsMax);
+            
             return this.hits < this.hitsMax / 2;
         }
     });
