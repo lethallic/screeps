@@ -8,11 +8,11 @@ function extend(p, ext) {
 module.exports = function() {
     
     extend(Creep.prototype, {
-        getStatus : function(default) {
+        getStatus : function(defaultStatus) {
             if ( this.memory && this.memory.status ) {
                 return this.memory.status;    
             }
-            return def || null;
+            return defaultStatus || null;
         },
         setStatus : function(newStatus) {
             this.memory.status = newStatus;
