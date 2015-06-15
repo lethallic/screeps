@@ -20,21 +20,15 @@ module.exports = function() {
     });
     
     extend(Room.prototype, {
-        getSources : function(notDefended) {
-            if ( typeof(notDefended) != 'undefined' ) {
-                return this.find(FIND_SOURCES, {
-                    filter: function(o) {
-                        return (o.isDefended != notDefended);
-                    }
-                });
-            }
-            return this.find(FIND_SOURCES);
+        getSources : function(defended) {
+            return this.find(FIND_SOURCES, {
+                filter: function(o) {
+                    return (o.isDefended() != (defended || false));
+                }
+            });
         },
         
     });
-    
-    
-    
     
     extend(Structure.prototype, {
         isDamaged : function() {
@@ -42,11 +36,10 @@ module.exports = function() {
         }
     });
     
-    
     extend(Source.prototype, {
         isDefended : function() {
             var targets = this.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
-            if ( targes.length ) {
+            if ( targets.length ) {
                 return true;
             }
             
