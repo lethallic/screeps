@@ -77,10 +77,14 @@ module.exports = {
 			if ( c.energy == 0 || ( c.energy < c.energyCapacity && c.getStatus("transfering") == "transfering" ) ) {
 				var spawns = c.room.find(FIND_MY_SPAWNS);
 				if ( spawns.length ) {
-					c.moveTo(spawns[0]);
-					spawns[0].transferEnergy(c);
-					c.setStatus("transfering")
-					return true;
+					var spawn = spawns[0];
+					
+					if ( spawn.energy > 0 ) {
+						c.moveTo(spawn);
+						spawn.transferEnergy(c);
+						c.setStatus("transfering");
+						return true;
+					}
 				}
 			}
 			return false;
