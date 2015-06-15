@@ -91,7 +91,7 @@ module.exports = {
 		},
 		function(c) { // repair
 			if ( c.energy > 0 )	 {
-				var targets = c.room.find(FIND_CONSTRUCTION_SITES, {
+				var targets = c.room.find(FIND_MY_STRUCTURES, {
 					filter : function(o) {
 						return (o.hits < o.hitsMax);
 					}
