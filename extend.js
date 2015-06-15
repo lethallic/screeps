@@ -20,8 +20,21 @@ module.exports = function() {
     });
     
     extend(Room.prototype, {
+        getSources : function(notDefended) {
+            if ( typeof(notDefended) != 'undefined' ) {
+                return this.find(FIND_SOURCES, {
+                    filter: function(o) {
+                        return (o.isDefended != notDefended);
+                    }
+                });
+            }
+            return this.find(FIND_SOURCES);
+        },
         
     });
+    
+    
+    
     
     extend(Structure.prototype, {
         isDamaged : function() {
