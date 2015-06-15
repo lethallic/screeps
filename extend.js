@@ -32,6 +32,8 @@ module.exports = function() {
     
     extend(Structure.prototype, {
         isDamaged : function() {
+            console.log(this.hits, this.maxHits);
+            
             return this.hits < this.maxHits;
         }
     });
