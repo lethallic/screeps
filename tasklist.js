@@ -62,7 +62,7 @@ module.exports = {
 				if ( rc && rc.my ) {
 					c.moveTo(rc);
 					c.upgradeController(rc);
-					c.setStatus("transfering")
+					c.setStatus("transfering");
 					return true;
 				}
 			}
@@ -93,11 +93,12 @@ module.exports = {
 			if ( c.energy > 0 )	 {
 				var targets = c.room.find(FIND_MY_STRUCTURES, {
 					filter: function(i) {
-    					return i.needsRepair();
+					    if (i.structureType == STRUCTURE_ROAD || i.my) {
+					        return i.needsRepair();    
+					    }
+    					return false;
     				}
 				});
-				
-				// console.log("targets", targets.length);
 				
 				if ( targets.length ) {
 					c.moveTo(targets[0]);
@@ -115,7 +116,7 @@ module.exports = {
 	            if(targets.length) {
 	                creep.moveTo(targets[0]);
 	                creep.build(targets[0]);
-	                creep.setStatus("building")
+	                creep.setStatus("building");
 					return true;
 	            }
 				
@@ -123,7 +124,7 @@ module.exports = {
 				if ( rc && rc.my ) {
 					creep.moveTo(rc);
 					creep.upgradeController(rc);
-					creep.setStatus("building")
+					creep.setStatus("building");
 					return true;
 				}
 			}
