@@ -30,10 +30,6 @@ module.exports = function() {
         
     });
     
-    Structure.prototype.needsRepair = function() {
-        return this.hits < this.hitsMax / 2;
-    };
-    
     extend(Source.prototype, {
         isDefended : function() {
             var targets = this.pos.findInRange(FIND_HOSTILE_CREEPS, 10);

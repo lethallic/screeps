@@ -2,6 +2,10 @@
 require("extend")();
 var _ = require("lodash");
 
+ Structure.prototype.needsRepair = function() {
+        return this.hits < this.hitsMax / 2;
+    };
+
 var useNewController = true;
 if ( useNewController ) {
     var controllers = require("controller")(Game.rooms);
