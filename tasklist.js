@@ -73,7 +73,7 @@ module.exports = {
 		    console.log(c.room.find(FIND_MY_CREEPS).length);
             if ( c.room.find(FIND_MY_CREEPS).length > 8 ) {
                 var newSpawn = findNewSpawn();
-                if (newSpawn.room.find(FIND_MY_CREEPS).length < 3) {
+                if (newSpawn && newSpawn.room.find(FIND_MY_CREEPS).length < 3) {
                     if ( newSpawn ) {
                         c.say("new spawn");
                         c.moveTo(newSpawn);
