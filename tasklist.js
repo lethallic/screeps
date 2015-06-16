@@ -91,20 +91,17 @@ module.exports = {
 		},
 		function(c) { // repair
 			if ( c.energy > 0 )	 {
-				var targets = c.room.find(FIND_MY_STRUCTURES, {
-					filter: function(i) {
-					    if (i.structureType == STRUCTURE_ROAD || i.my) {
-					        return i.needsRepair();    
-					    }
-    					return false;
-    				}
-				});
-				
-				if ( targets.length ) {
-					c.moveTo(targets[0]);
-	                c.repair(targets[0]);
-	                c.setStatus("repair");
-					return true;
+				var structures = c.room.find(FIND_STRUCTURES);
+				for ( var s in structures ) {
+					var struct = structures[s];
+					if ( struct.my || struct.structureType == STRUCTURE_ROAD ) {
+						if ( struct.needsRepair() ) {
+							c.moveTo(struct);
+							c.repair(struct);
+							c.setStatus("repair");
+							return true;
+						}
+					}
 				}
 			}
 			return false;
