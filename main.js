@@ -3,6 +3,8 @@ require("extend")();
 var _ = require("lodash");
 
 
+require("scout")();
+
 var useNewController = true;
 if ( useNewController ) {
     var controllers = require("controller")(Game.rooms);

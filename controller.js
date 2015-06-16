@@ -65,16 +65,18 @@ function RoomFactory(room, ctrl) {
 	}
 	
 	var createCreep = function(body, role) {
-		var name = role + "_" + (Math.round(Math.random() * 1000));
-		
-		var result = getIdleSpawn().createCreep(body, name, {
-			"role" : role
-		});
-		
-		if ( _.isString(result) ) {
-			return true;
-		} 
-		
+		var spawn = getIdleSpawn();
+		if ( spawn ) {
+			var name = role + "_" + (Math.round(Math.random() * 1000));
+
+			var result = getIdleSpawn().createCreep(body, name, {
+				"role" : role
+			});
+			
+			if ( _.isString(result) ) {
+				return true;
+			} 
+		}
 		return false;
 	}
 		
