@@ -73,7 +73,7 @@ module.exports = {
 		    console.log(c.room.find(FIND_MY_CREEPS).length);
             if ( c.room.find(FIND_MY_CREEPS).length > 8 ) {
                 var newSpawn = findNewSpawn();
-                if (newSpawn.room.find(FIND_MY_CREEPS).length < 3) {
+                if (newSpawn && newSpawn.room.find(FIND_MY_CREEPS).length < 3) {
                     if ( newSpawn ) {
                         c.say("new spawn");
                         c.moveTo(newSpawn);
@@ -146,23 +146,7 @@ module.exports = {
 			}
 			return false;
 		},
-		function(c) { // repair
-			if ( c.energy > 0 )	 {
-				var structures = c.room.find(FIND_STRUCTURES);
-				for ( var s in structures ) {
-					var struct = structures[s];
-					if ( struct.my || struct.structureType == STRUCTURE_ROAD ) {
-						if ( struct.needsRepair() ) {
-							c.moveTo(struct);
-							c.repair(struct);
-							c.setStatus("repair");
-							return true;
-						}
-					}
-				}
-			}
-			return false;
-		},
+	
 		function(creep) { // build
 			// if ( creep.energy > 0 || ( creep.energy > 0 && c.getStatus("transfering") == "building" ) ) {
 			if ( creep.energy > 0 ) {
@@ -184,6 +168,25 @@ module.exports = {
 			}
 			return false;
 		},
+		
+		function(c) { // repair
+			if ( c.energy > 0 )	 {
+				var structures = c.room.find(FIND_STRUCTURES);
+				for ( var s in structures ) {
+					var struct = structures[s];
+					if ( struct.my || struct.structureType == STRUCTURE_ROAD ) {
+						if ( struct.needsRepair() ) {
+							c.moveTo(struct);
+							c.repair(struct);
+							c.setStatus("repair");
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		},
+		
 		function(c) {
 		    var spawns = c.room.find(FIND_MY_SPAWNS);
 			if ( spawns.length ) {
