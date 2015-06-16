@@ -31,11 +31,12 @@ module.exports = function(){
                 if ( creep ) {
                     var controller = flag.room.controller;
                     
-                    console.log("user", controller.user);
-                    
-                    creep.moveTo(flag);
-                    
-                    
+                    if ( !controller.owner ) {
+                        creep.moveTo(controller);
+                        creep.claimController(controller);
+                    } else {
+                        creep.moveTo(flag);
+                    }
                 } 
             }
         }
