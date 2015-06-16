@@ -1,3 +1,21 @@
+function findNewSpawn() {
+    for ( var r in Game.rooms ) {
+        var room = Game.rooms[r];
+        var cs = room.find(FIND_CONSTRUCTION_SITES);
+        
+        if ( cs.length ) {
+            for ( var siteId in cs ) {
+                var site = cs[siteId];
+                if ( site.structureType == STRUCTURE_SPAWN ) {
+                    return site;
+                }
+            }
+        }
+    }
+
+    return null;
+}
+
 module.exports = {
 	"worker" : new TaskList([
 		function(c) {
@@ -19,13 +37,48 @@ module.exports = {
 				}
 				var sources = room.find(FIND_SOURCES);
 				if ( sources.length ) {
-					c.moveTo(sources[2]);
-					c.harvest(sources[2]);
-					c.setStatus("harvesting");
-					return true;
+				    for ( var s in sources ) {
+				        if ( !sources[s].isDefended() ) {
+				            c.moveTo(sources[s]);
+					        c.harvest(sources[s]);
+					        c.setStatus("harvesting");
+					        return true;
+				        }
+				    }
 				}
 			}
 			return false;
+		},
+		
+		function(c) {
+		    var cs = c.room.find(FIND_CONSTRUCTION_SITES);
+        
+            if ( cs.length ) {
+                for ( var siteId in cs ) {
+                    var site = cs[siteId];
+                    if ( site.structureType == STRUCTURE_SPAWN ) {
+                        c.moveTo(site);
+                        c.build(site);
+                        return true;
+                    }
+                }
+            }
+		    
+		    return false;
+		},
+		
+		function(c) {
+		    return false;
+            if ( c.room.find(FIND_MY_CREEPS).length > 6 ) {
+                var newSpawn = findNewSpawn();
+                if ( newSpawn ) {
+                    c.say("new spawn");
+                    c.moveTo(newSpawn);
+                    c.build(newSpawn);
+                    return true;
+                }
+            }
+            return false;		    
 		},
 		function(c) { /** Transfer Energy */
 			if ( c.energy == c.energyCapacity || ( c.energy > 0 && c.getStatus("harvesting") == "transfering")) {
@@ -128,6 +181,11 @@ module.exports = {
 			return false;
 		},
 		function(c) {
+		    var spawns = c.room.find(FIND_MY_SPAWNS);
+			if ( spawns.length ) {
+		        var spawn = spawns[0];
+			    c.moveTo(spawn);
+			}
 			c.say("[STATUS: IDLE]");
 		}
 	])
