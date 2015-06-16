@@ -52,13 +52,14 @@ module.exports = {
 		
 		function(c) {
 		    var cs = c.room.find(FIND_CONSTRUCTION_SITES);
-        
-            if ( cs.length ) {
+            
+            if ( c.energy > 0 && cs.length ) {
                 for ( var siteId in cs ) {
                     var site = cs[siteId];
                     if ( site.structureType == STRUCTURE_SPAWN ) {
                         c.moveTo(site);
                         c.build(site);
+                        c.setStatus("buildSpawn");
                         return true;
                     }
                 }
@@ -68,14 +69,17 @@ module.exports = {
 		},
 		
 		function(c) {
-		    return false;
-            if ( c.room.find(FIND_MY_CREEPS).length > 6 ) {
+		    //return false;
+		    console.log(c.room.find(FIND_MY_CREEPS).length);
+            if ( c.room.find(FIND_MY_CREEPS).length > 8 ) {
                 var newSpawn = findNewSpawn();
-                if ( newSpawn ) {
-                    c.say("new spawn");
-                    c.moveTo(newSpawn);
-                    c.build(newSpawn);
-                    return true;
+                if (newSpawn.room.find(FIND_MY_CREEPS).length < 3) {
+                    if ( newSpawn ) {
+                        c.say("new spawn");
+                        c.moveTo(newSpawn);
+                        c.build(newSpawn);
+                        return true;
+                    }
                 }
             }
             return false;		    
